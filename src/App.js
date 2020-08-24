@@ -1,21 +1,18 @@
-import React, { Component } from 'react';
-import './App.css';
-import './extras/bootstrap/bootstrap.min.css';
-import './extras/fontawesome/css/all.min.css';
-import Navbar from './components/Navbar/Navbar';
-import Body from './components/Body/Body';
-import Footer from './components/Footer/Footer';
+import React from "react";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
+import Layout from "./components/Layout/Layout";
+import Home from "./pages/Home/Home";
 
-class App extends Component {
-  render() {
-    return (
-      <>
-        <Navbar />
-        <Body />
-        <Footer />
-      </>
-    )
-  }
+function App() {
+  return (
+    <BrowserRouter>
+      <Layout>
+        <Switch>
+          <Route exact path="/Home" component={Home} />
+        </Switch>
+      </Layout>
+    </BrowserRouter>
+  );
 }
 
 export default App;
