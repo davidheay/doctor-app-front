@@ -23,7 +23,7 @@ class Specialties extends Component {
                 <div className="col-12 mb-4">
                     <h2>Nuestras especialidades</h2>
                 </div>
-                {this.specialties.map(item => (<Specialty  {...item} />))}
+                {this.specialties.map((item, index) => (<Specialty  {...item} key={index} />))}
             </div>
         )
     }

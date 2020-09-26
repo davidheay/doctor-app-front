@@ -1,8 +1,14 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 class Option extends Component {
   render() {
     return (
-      <a className="py-2 d-none d-md-inline-block text-white" href={this.props.destination}>{this.props.text} <i className={"fa fa-" + this.props.icon}></i></a>
+      <Link to={this.props.destination}>
+        <span className="py-2 d-none d-md-inline-block text-white">
+          {this.props.text}
+          <i className={"ml-2 fa fa-" + this.props.icon}></i>
+        </span>
+      </Link>
     )
   }
 }

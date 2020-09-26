@@ -1,17 +1,21 @@
 import React, { Component } from "react";
-import "../Home/Home.css";
-import "../../extras/bootstrap/bootstrap.min.css";
-import "../../extras/fontawesome/css/all.min.css";
-import Body from "../../components/Body/Body";
+import Recommendations from '../../components/Recommendations/Recommendations';
+import Specialties from '../../components/Specialties/Specialties';
+import Info from '../../components/Info/Info';
+import Banner from '../../components/Banner/Banner';
+import "./Home.css";
 
-class App extends Component {
+class Home extends Component {
   render() {
     return (
       <>
-        <Body />
+        <Info />
+        <Specialties />
+        <Banner />
+        <Recommendations />
       </>
-    );
+    )
   }
 }
 
-export default App;
+export default Home;

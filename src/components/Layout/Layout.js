@@ -6,10 +6,13 @@ import Footer from "../Footer/Footer";
 function Layout(props) {
   return (
     <React.Fragment>
-      <Navbar />
-      {props.children}
+      {props.loading ? <div className="loading"></div> : ''}
+      <Navbar isAuthenticated={props.isAuthenticated} user={props.user} />
+      <div className="container my-3">
+        {props.children}
+      </div>
       <Footer />
-    </React.Fragment>
+    </React.Fragment >
   );
 }
 

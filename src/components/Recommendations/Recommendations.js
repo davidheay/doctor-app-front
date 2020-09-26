@@ -17,8 +17,8 @@ class Recomendations extends Component {
     }];
     render() {
         return (
-            <div className="row">
-                {this.recomendations.map(item => (<Recommendation {...item} />))}
+            <div className="row" id="reccomendations">
+                {this.recomendations.map((item, index) => (<Recommendation {...item} key={index} />))}
             </div>
         )
     }

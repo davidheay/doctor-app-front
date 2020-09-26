@@ -15,7 +15,7 @@ class Banner extends Component {
                     </p>
                 </div>
                 <div className="col-md-5 text-center">
-                    <img src={logo} class="img-fluid w-50" alt="lgoo" />
+                    <img src={logo} className="img-fluid w-50" alt="lgoo" />
                 </div>
             </div>
         )
