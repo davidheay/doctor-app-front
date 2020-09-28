@@ -4,11 +4,11 @@ class Recomendation extends Component {
     render() {
         return (
             <div className="col-4">
-                <div class="card" >
-                    <img src={this.props.src} class="card-img-top" alt="Recomendation" />
-                    <div class="card-body">
-                        <h5 class="card-title">{this.props.title}</h5>
-                        <p class="card-text">{this.props.text}</p>
+                <div className="card" >
+                    <img src={this.props.src} className="card-img-top" alt="Recomendation" />
+                    <div className="card-body">
+                        <h5 className="card-title">{this.props.title}</h5>
+                        <p className="card-text">{this.props.text}</p>
                     </div>
                 </div>
             </div>

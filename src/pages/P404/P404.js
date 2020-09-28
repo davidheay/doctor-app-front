@@ -14,7 +14,7 @@ class P404 extends Component {
           <div className="col-12 mt-3">
             <h4 className="d-block">Parece que no podemos encontrar la página que estás buscando</h4>
             <Link to="/">
-              <button className="btn btn-info mt-3"> <i class="fa fa-arrow-left"></i> Volver </button>
+              <button className="btn btn-info mt-3"> <i className="fa fa-arrow-left"></i> Volver </button>
             </Link>
 
           </div>

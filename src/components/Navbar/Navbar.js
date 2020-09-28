@@ -6,8 +6,8 @@ class Navbar extends Component {
   renderOptionsByAuth() {
     if (this.props.isAuthenticated) {
       return [
-        <Option text="Reservaciones" destination=""  key={2} />,
-        <Option text={this.props.user} destination="/logout"  key={1} />]
+        <Option text="Reservaciones" destination="" key={2} />,
+        <Option text={this.props.user} destination="/logout" key={1} />]
     } else {
       return <Option text="Iniciar sesión" destination="login" icon="sign-in-alt" key={0} />;
     }
@@ -22,15 +22,15 @@ class Navbar extends Component {
               Doctor App
             </h4>
           </Link>
-          <ul class="nav justify-content-end">
-          <Option text="Inicio" destination="/" key={6} />
-          <Option text="Nosotros" destination="/nosotros"  key={4} />
-          <Option text="Consultas" destination="/consultas" key={5} />
-          
-          <Option text="Tips" destination="/recomendaciones" key={3} />
-          
-          {this.renderOptionsByAuth()}
-          
+          <ul className="nav justify-content-end">
+            <Option text="Inicio" destination="/" key={6} />
+            <Option text="Nosotros" destination="/nosotros" key={4} />
+            <Option text="Consultas" destination="/consultas" key={5} />
+
+            <Option text="Tips" destination="/recomendaciones" key={3} />
+
+            {this.renderOptionsByAuth()}
+
           </ul>
         </div>
       </nav>
