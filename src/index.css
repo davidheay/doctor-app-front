@@ -1,6 +1,7 @@
 html,
 body {
   height: 100%;
+  padding-top: 3rem;
 }
 .loading {
   position: fixed;
@@ -11,8 +12,8 @@ body {
   z-index: 1;
   overflow: visible;
   background: rgb(0 0 0 / 0.6) url("images/load.gif") no-repeat center center;
-  background-size: 200px;
-  z-index: 1021;
+  background-size: 600px;
+  z-index: 1031;
 }
 #root {
   height: 100%;

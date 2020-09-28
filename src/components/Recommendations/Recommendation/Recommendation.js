@@ -5,7 +5,7 @@ class Recomendation extends Component {
         return (
             <div className="col-4">
                 <div class="card" >
-                    <img src={this.props.src} class="card-img-top" alt="Image recomendation" />
+                    <img src={this.props.src} class="card-img-top" alt="Recomendation" />
                     <div class="card-body">
                         <h5 class="card-title">{this.props.title}</h5>
                         <p class="card-text">{this.props.text}</p>

@@ -5,9 +5,9 @@ class RelatedItem extends Component {
 
     return (
       <div className={"pointer hover col-" + this.props.col} onClick={this.props.onClick}>
-        <div className={"card " + colors[this.props.index]} >
-          <div className="card-body">
-            <p className="card-text">{this.props.title}</p>
+        <div className={"h-100 card " + colors[this.props.index]} >
+          <div className="card-body d-flex align-items-center text-center">
+            <p className="card-text text-white w-100">{this.props.title}</p>
           </div>
         </div>
       </div>

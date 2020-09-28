@@ -24,7 +24,7 @@ class Navbar extends Component {
           </Link>
           <ul class="nav justify-content-end">
           <Option text="Inicio" destination="/" key={6} />
-          <Option text="Nosotros" destination="#"  key={4} />
+          <Option text="Nosotros" destination="/nosotros"  key={4} />
           <Option text="Consultas" destination="/consultas" key={5} />
           
           <Option text="Tips" destination="/recomendaciones" key={3} />
