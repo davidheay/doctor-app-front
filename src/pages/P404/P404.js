@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 class P404 extends Component {
   render() {
     return (
-      <div className="container my-5 ">
+      <div className="container my-5 padding-top-5">
         <div className="row text-center">
           <div className="col-12">
             <img src={img404} alt="img" className="w-50" />

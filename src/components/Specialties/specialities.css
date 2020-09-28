@@ -1,0 +1,30 @@
+.especiality-header h2{
+    font-size: 36px;
+}
+
+.especiality-header p{
+    color: #7D7987;
+    font-size: 16px;
+    font-weight: 100;
+}
+
+.card-specialities {
+    border-radius: 20px !important;
+    border: none !important;
+    -webkit-box-shadow: 10px 10px 24px -3px rgba(0,0,0,0.05) !important;
+    -moz-box-shadow: 10px 10px 24px -3px rgba(0,0,0,0.05) !important;
+    box-shadow: 10px 10px 24px -3px rgba(0,0,0,0.05) !important;
+}
+.card-specialities:hover{
+    box-shadow: 10px 10px 24px -3px rgba(0,0,0,0.10) !important;
+    -webkit-box-shadow: 10px 10px 24px -3px rgba(0,0,0,0.10) !important;
+    -moz-box-shadow: 10px 10px 24px -3px rgba(0,0,0,0.10) !important;
+    transition: .5s all;
+    cursor: pointer;
+}
+
+.card-specialities img{
+    max-width: 50px;
+    width: 50px;
+    padding-bottom: 10px;
+}

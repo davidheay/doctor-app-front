@@ -1,0 +1,38 @@
+nav{
+    background: white;
+    -webkit-box-shadow: 6px 9px 16px 0px rgba(0,0,0,0.05);
+    -moz-box-shadow: 6px 9px 16px 0px rgba(0,0,0,0.05);
+    box-shadow: 6px 9px 16px 0px rgba(0,0,0,0.05);
+    padding-top: 15px;
+    padding-bottom: 15px;
+    margin-bottom: 50px;
+}
+
+nav .nav-link {
+    color: #444249;
+    font-size: 17px;
+}
+nav .nav-link .active {
+    color: #000;
+}
+nav a:hover{
+    text-decoration: none;
+    transform: scale(1.05);
+    font-weight: 500;
+    transition: .2s all;
+}
+nav a:hover .nav-item .nav-link, nav .nav-title{
+    color: #100e34;
+}
+
+.btn-primary{
+    background-color: #458FF6 !important;
+    border-radius: 30px !important;
+}
+.btn-primary:hover{
+    transform: scale(1.05);
+    transition: .4s all;
+}
+.btn-round{
+    border-radius: 30px !important;
+}

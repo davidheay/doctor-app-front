@@ -1,0 +1,20 @@
+.info-section{
+    padding-top: 100px !important;
+}
+.info-content{
+    margin-top: 15%;
+}
+.info-content h2{
+    font-size: 48px;
+}
+.info-content p{
+    color: #7D7987;
+    font-size: 20px;
+    padding-top: 20px;
+}
+.info-content button{
+    margin-top: 20px;
+    width: 200px;
+    height: 50px;
+    font-size: 18px;
+}

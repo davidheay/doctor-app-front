@@ -1,25 +1,35 @@
 import React, { Component } from "react";
 import Recommendation from "./Recommendation/Recommendation"
 
+import aguja from '../../images/aguja.png';
+import micro from '../../images/micro.png';
+import piel from '../../images/cara.png';
+
 class Recomendations extends Component {
     recomendations = [{
-        text: "Lávate las manos con frecuencia.Usa agua y jabón o un desinfectante de manos a base de alcohol.",
-        number: "1"
+        title: "Nueva tecnología a tu disposición",
+        text: "Ahora nuestros laboratorios cuentan con tecnología de extracción de muestras indolora. No más miedo",
+        src: aguja
     }, {
-        text: "Mantén una distancia de seguridad con personas que tosan o estornuden.",
-        number: "2"
-    }, {
-        text: "Utiliza mascarilla cuando no sea posible mantener el distanciamiento físico.",
-        number: "3"
-    }, {
-        text: "Cuando tosas o estornudes, cúbrete la nariz y la boca con el codo flexionado o con un pañuelo.",
-        number: "4"
+        title: "Medicamentos herbales seguros para el consumo",
+        text: "Los medicamentos herbales o tradicionales son seguros para el consumo, pero ojo, no todos",
+        src: micro
+    },
+    {
+        title: "Cuidado natural para la salud piel facial",
+        text: "Un estilo de vida saludable debe comenzar ahora y también para la salud de tu piel. Hay algunos...",
+        src: piel
     }];
     render() {
         return (
-            <div className="row" id="reccomendations">
-                {this.recomendations.map((item, index) => (<Recommendation {...item} key={index} />))}
-            </div>
+           <div className="mb-5">
+                <div className="text-center mb-5">
+                    <h2>Nuestros tips para tu cuidado</h2>
+                </div>
+                <div className="row" id="reccomendations">
+                    {this.recomendations.map((item, index) => (<Recommendation {...item} key={index} />))}
+                </div>
+           </div>
         )
     }
 }

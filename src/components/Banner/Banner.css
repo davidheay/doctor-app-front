@@ -1,0 +1,19 @@
+.featurette-heading{
+    font-size: 36px;
+    margin-bottom: 10px;
+}
+.featurette-heading::after{
+    content: "";
+    background-color: #047bf8;
+    width: 25px;
+    height: 4px;
+    border-radius: 0px;
+    display: block;
+    position: absolute;
+    margin-left: 15px;
+    left: 0px;
+    margin-top: 20px;
+}
+.lead{
+    margin-top: 30px !important;
+}

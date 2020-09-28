@@ -4,9 +4,9 @@ class Specialty
     render() {
         return (
             <div className="col-4">
-                <div className="card shadow" >
-                    <img src={this.props.src} className="card-img-top w-100" alt="logo" />
-                    <div className="card-body">
+                <div className=" card-specialities mb-5" >
+                    <div className="card-body card-specialities">
+                        <img  src={this.props.src}  alt="logo" />
                         <h3>{this.props.title}</h3>
                         <p className="card-text">{this.props.text}</p>
                     </div>

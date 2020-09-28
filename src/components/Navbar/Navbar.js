@@ -6,8 +6,8 @@ class Navbar extends Component {
   renderOptionsByAuth() {
     if (this.props.isAuthenticated) {
       return [
-        <Option text="Reserva tu cita" destination="" icon="calendar-plus" key={2} />,
-        <Option text={this.props.user} destination="/logout" icon="sign-out-alt" key={1} />]
+        <Option text="Reservaciones" destination=""  key={2} />,
+        <Option text={this.props.user} destination="/logout"  key={1} />]
     } else {
       return <Option text="Iniciar sesión" destination="login" icon="sign-in-alt" key={0} />;
     }
@@ -15,17 +15,23 @@ class Navbar extends Component {
   render() {
 
     return (
-      <nav className="site-header sticky-top py-1 bg-info">
-        <div className="container d-flex flex-column flex-md-row justify-content-between text-white">
-          <Link to="/" className="text-white">
+      <nav className="site-header fixed-top">
+        <div className="container d-flex flex-column flex-md-row justify-content-between ">
+          <Link to="/" className="nav-title">
             <h4 className="pt-1 font-weight-bold">
-              <i className="fas fa-user-md fa-1x"></i> Doctor App
+              Doctor App
             </h4>
           </Link>
-          <Option text="Consultas" destination="/consultas" icon="search" key={5} />
-          <Option text="Quienes somos" destination="#" icon="user-friends" key={4} />
-          <Option text="Recomendaciones" destination="/recomendaciones" icon="info" key={3} />
+          <ul class="nav justify-content-end">
+          <Option text="Inicio" destination="/" key={6} />
+          <Option text="Nosotros" destination="#"  key={4} />
+          <Option text="Consultas" destination="/consultas" key={5} />
+          
+          <Option text="Tips" destination="/recomendaciones" key={3} />
+          
           {this.renderOptionsByAuth()}
+          
+          </ul>
         </div>
       </nav>
     )

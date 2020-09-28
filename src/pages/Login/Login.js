@@ -49,13 +49,13 @@ class Login extends Component {
   render() {
 
     return (
-      <div className="row" >
+      <div className="row bg-login" >
         {this.state.loading ? <div className="loading"></div> : ''}
-        <div className="col-4 offset-4">
+        <div className="col-4 offset-4 card">
           <form className="text-center" onSubmit={this.onSubmit}>
             <img className="mb-3 w-50" src={logo} alt="logo" />
 
-            <h1 className="h3 mb-3 font-weight-normal">Por favor, ingresa</h1>
+            <h6 className="mb-3 font-weight-normal">Ingresa tus credenciales para iniciar sesión</h6>
 
             <div className="input-group mb-3">
               <div className="input-group-prepend">
@@ -73,7 +73,7 @@ class Login extends Component {
                 value={this.state.password} onChange={(e => this.setState({ password: e.target.value }))} />
             </div>
 
-            <button className="btn btn-lg btn-primary btn-block mt-4" type="submit">Iniciar sesion</button>
+            <button className="btn btn-lg btn-primary btn-block mt-4" type="submit">Iniciar sesión</button>
             {this.state.error ? <div className="alert alert-danger mt-3" role="alert">Ha ocurrido un error!</div> : ""}
             {(this.props.location.search).includes("logout") ? <div className="alert alert-warning mt-3" role="alert">Has cerrado sesion satisfactoriamente!</div> : ""}
           </form>
