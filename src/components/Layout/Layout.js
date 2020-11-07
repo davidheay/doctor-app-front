@@ -6,8 +6,7 @@ import Footer from "../Footer/Footer";
 function Layout(props) {
   return (
     <React.Fragment>
-      {props.loading ? <div className="loading"></div> : ''}
-      <Navbar isAuthenticated={props.isAuthenticated} user={props.user} />
+      <Navbar/>
       <div className="container my-3">
         {props.children}
       </div>

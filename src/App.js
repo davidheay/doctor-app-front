@@ -1,44 +1,33 @@
 import React, { Component } from "react";
+import { connect } from 'react-redux';
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import Layout from "./components/Layout/Layout";
+import "./extras/bootstrap/bootstrap.min.css";
+import "./extras/fontawesome/css/all.min.css";
 import Home from "./pages/Home/Home";
 import Login from "./pages/Login/Login";
 import P404 from "./pages/P404/P404";
 import Recomendaciones from "./pages/Recomendaciones/Recomendaciones";
-import "./extras/bootstrap/bootstrap.min.css";
-import "./extras/fontawesome/css/all.min.css";
+import SingUp from "./pages/SingUp/SingUp";
+import Us from "./pages/Us/Us";
+import * as actionCreators from './store/actions/authenticationActions';
+
+
 
 class App extends Component {
-  constructor(props) {
-    super(props);
-    this.setAuth = this.setAuth.bind(this);
-    this.changeGif = this.changeGif.bind(this);
-
-    this.state = {
-      isAuthenticated: false,
-      user: '',
-      loading: false
-    };
-  }
-
-  setAuth(val, user) {
-    this.setState({
-      isAuthenticated: val,
-      user: user || ''
-    });
-  }
-  changeGif() {
-    this.setState({ loading: !this.state.loading });
+  componentDidMount() {
+    this.props.onPersistAuthentication();
   }
   render() {
     return (
       <BrowserRouter>
-        <Layout isAuthenticated={this.state.isAuthenticated} user={this.state.user} loading={this.state.loading} >
+        <Layout>
           <Switch>
-            <Route exact path="/login" component={() => <Login setAuth={this.setAuth} changeGif={this.changeGif} />} />
-            <Route exact path="/logout" component={() => <Login setAuth={this.setAuth} changeGif={this.changeGif} logout={true} />} />
-            <Route exact path="/recomendaciones" component={Recomendaciones} />
-            <Route exact path="/" component={Home} />
+            <Route path="/" component={Home} exact />
+            <Route path="/login" component={Login} />
+            <Route path="/singup" component={SingUp} />
+            <Route path="/nosotros" component={Us} />
+            <Route path="/recomendaciones" component={Recomendaciones} />
             <Route component={P404} />
           </Switch>
         </Layout>
@@ -46,6 +35,13 @@ class App extends Component {
     );
   }
 
+
 }
 
-export default App;
+const mapDispatchToProps = dispatch => {
+  return {
+    onPersistAuthentication: () => dispatch(actionCreators.persistAuthentication())
+  };
+};
+
+export default connect(null, mapDispatchToProps)(App);

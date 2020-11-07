@@ -1,17 +1,16 @@
 import React, { Component } from "react";
 import { connect } from 'react-redux';
-import { Link } from "react-router-dom";
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
 import Spinner from '../../components/Spinner/Spinner';
 import logo from "../../images/logo.png";
 import * as actionCreators from '../../store/actions/authenticationActions';
-import "./Login.css";
+import "./SingUp.css";
 
 
 const MySwal = withReactContent(Swal)
 
-class Login extends Component {
+class SingUp extends Component {
 
   constructor(props) {
     super(props);
@@ -22,12 +21,6 @@ class Login extends Component {
     };
   }
   componentDidUpdate() {
-    this.checkLoggedIn();
-  }
-  componentDidMount() {
-    this.checkLoggedIn();
-  }
-  checkLoggedIn() {
     if (this.state.isUserLoggedIn)
       this.props.history.push('/');
     else if (this.props.error !== '' && !this.props.loadingAuth)
@@ -48,13 +41,14 @@ class Login extends Component {
         <div className="col-4 offset-4 card text-center d-flex align-items-center">
           <img className="mb-3 w-50" src={logo} alt="logo" />
 
-          <h6 className="mb-3 font-weight-normal">Ingresa tus credenciales para iniciar sesión</h6>
+          <h5 className="mb-3 font-weight-normal">Crea Tu cuenta </h5>
+          <h6 className="mb-3 font-weight-normal">Para crear una cuenta ingresa tu correo  y una contraseña </h6>
 
           <div className="input-group mb-3">
             <div className="input-group-prepend">
-              <span className="input-group-text" id="basic-addon1"><i className="fa fa-user" ></i> </span>
+              <span className="input-group-text" id="basic-addon1"><i className="fa fa-envelope" ></i> </span>
             </div>
-            <input type="text" className="form-control" placeholder="Usuario"
+            <input type="text" className="form-control" placeholder="Correo"
               value={this.state.user} onChange={(e => this.setState({ user: e.target.value }))} />
           </div>
 
@@ -73,21 +67,19 @@ class Login extends Component {
   }
 
   renderSubmitButton = () => {
-    let content = [
-      <button className="btn btn-md btn-success btn-block" onClick={this.logIn} >Iniciar sesión</button>
-      , <Link to="/singUp" className="btn btn-md btn-info btn-block" >Crear cuenta</Link>];
+    let content = <button className="btn btn-md btn-success btn-block" onClick={this.singUp} >Crear cuenta</button>;
     if (this.props.loadingAuth)
       content = <Spinner />
     return content;
   }
-  logIn = () => {
+  singUp = () => {
     const userData = {
       email: this.state.user,
       password: this.state.password
     };
-    this.props.onUserLogin(userData, () => {
+    this.props.onUserSignUp(userData, () => {
       this.props.history.push('/');
-    });
+  });
   }
 }
 
@@ -101,9 +93,9 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    onUserLogin: (authData, onSuccessCallback) => dispatch(actionCreators.logIn(authData, onSuccessCallback)),
+    onUserSignUp: (authData, onSuccessCallback) => dispatch(actionCreators.signUp(authData, onSuccessCallback)),
     afterErrorShow: () => dispatch(actionCreators.cleanError())
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Login);
+export default connect(mapStateToProps, mapDispatchToProps)(SingUp);

@@ -1,17 +1,11 @@
 import React, { Component } from 'react';
-import Option from "./Option/Option"
-import "./Navbar.css";
+import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import * as actionCreators from '../../store/actions/authenticationActions';
+import "./Navbar.css";
+import Option from "./Option/Option";
 class Navbar extends Component {
-  renderOptionsByAuth() {
-    if (this.props.isAuthenticated) {
-      return [
-        <Option text="Reservaciones" destination="" key={2} />,
-        <Option text={this.props.user} destination="/logout" key={1} />]
-    } else {
-      return <Option text="Iniciar sesión" destination="login" icon="sign-in-alt" key={0} />;
-    }
-  }
+
   render() {
 
     return (
@@ -25,17 +19,35 @@ class Navbar extends Component {
           <ul className="nav justify-content-end">
             <Option text="Inicio" destination="/" key={6} />
             <Option text="Nosotros" destination="/nosotros" key={4} />
-            <Option text="Consultas" destination="/consultas" key={5} />
-
             <Option text="Tips" destination="/recomendaciones" key={3} />
-
             {this.renderOptionsByAuth()}
-
           </ul>
         </div>
       </nav>
     )
   }
+  renderOptionsByAuth() {
+    if (this.props.isUserLoggedIn) {
+      return [<Option text="Mis citas" destination="/citas" key={2} />,
+        <button className="btn btn-sm btn-danger py-0" onClick={this.logOut} ><i className="fa fa-sign-out-alt"></i> {this.props.userName}</button>]
+    } else {
+      return <Option text="Iniciar sesión" destination="login" icon="sign-in-alt" key={0} />;
+    }
+  }
+  logOut = () => {
+    this.props.onLogOut();
+  }
 }
 
-export default Navbar;
+const mapStateToProps = state => {
+  return {
+    isUserLoggedIn: state.authenticationStore.isUserLoggedIn,
+    userName: state.authenticationStore.userLoggedIn.userName,
+  }
+}
+
+const mapDispatchToProps = dispatch => {
+  return { onLogOut: () => dispatch(actionCreators.logOut()) }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Navbar);
