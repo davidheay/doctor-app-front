@@ -1,5 +1,6 @@
 import * as actionTypes from './actionTypes';
 import axiosLogin from '../../instances/axios-google-login';
+import axiosFireBase from '../../instances/axios-fire-base-data';
 
 const API_KEY = 'AIzaSyAUdFUFFCKqM0pCqX7Wk0jXFUFvx-ysOzQ';
 
@@ -95,13 +96,15 @@ export const signUp = (authData, onSuccessCallback) => {
                 userSession = JSON.stringify(userSession);
 
                 localStorage.setItem('userSession', userSession);
-
-                dispatch(saveSignUp(userEmail, token, localId));
-                dispatch(endAuthLoading());
-
-                if (onSuccessCallback) {
-                    onSuccessCallback();
-                }
+                
+                axiosFireBase.put(`users/${localId}.json`, { user: userEmail, rol: "patient" })
+                    .then(res => {
+                        dispatch(saveSignUp(userEmail, token, localId));
+                        dispatch(endAuthLoading());
+                        if (onSuccessCallback) {
+                            onSuccessCallback();
+                        }
+                    });
             })
             .catch(errorObj => {
                 dispatch(setError(errorObj.response.data.error.message));

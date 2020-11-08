@@ -15,13 +15,12 @@ class SingUp extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      isUserLoggedIn: this.props.isUserLoggedIn,
       user: "",
       password: ""
     };
   }
   componentDidUpdate() {
-    if (this.state.isUserLoggedIn)
+    if (this.props.isUserLoggedIn)
       this.props.history.push('/');
     else if (this.props.error !== '' && !this.props.loadingAuth)
       this.showError();

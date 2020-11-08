@@ -37,39 +37,36 @@ class Recomendaciones extends Component {
     });
   }
   render() {
-    return (this.renderData())
-  }
-  renderData = () => {
-    let content = (<>
-      <div className="row text-center">
-        <div className="col-12 ">
-          <h3>{this.state.title}</h3>
-        </div>
-        <div className="col-12 mt-2">
-          <img src={this.state.imageUrl} className="w-75" alt="imagen de contenido" />
-        </div>
-      </div>
-      <div className="row mt-4 d-flex justify-content-center">
-        <h3> Un poco de informacion... </h3>
-      </div>
-      <div className="row mt-4 no-gutters">
-        {this.state.sections.slice(0, 2).map(section => <Section content={section.Content} col={this.state.sections.length === 1 ? '12' : '6'} />)}
-      </div>
-      <div className="row mt-4 d-flex justify-content-center">
-        <h3> Talvez te interese </h3>
-      </div>
-      <div className="row mt-4">
-        {this.state.relatedItems.map((related, index) => <RelatedItem col={12 / this.state.relatedItems.length} title={related.Title} index={index} onClick={() => { this.getData(related.Id) }} />)}
-      </div>
-      <div className="row mt-4">
-        {this.state.sections.slice(2, this.state.sections.length).map(section => <Section content={section.Content} col={'6'} />)}
-      </div>
+    return (
+      this.state.loading ? <Spinner /> :
+        (
+          <div className="container">
+            <div className="row text-center">
+              <div className="col-12 ">
+                <h3>{this.state.title}</h3>
+              </div>
+              <div className="col-12 mt-2">
+                <img src={this.state.imageUrl} className="w-75" alt="imagen de contenido" />
+              </div>
+            </div>
+            <div className="row mt-4 d-flex justify-content-center">
+              <h3> Un poco de informacion... </h3>
+            </div>
+            <div className="row mt-4 no-gutters">
+              {this.state.sections.slice(0, 2).map((section, i) => <Section key={i} content={section.Content} col={this.state.sections.length === 1 ? '12' : '6'} />)}
+            </div>
+            <div className="row mt-4 d-flex justify-content-center">
+              <h3> Talvez te interese </h3>
+            </div>
+            <div className="row mt-4">
+              {this.state.relatedItems.map((related, index) => <RelatedItem col={12 / this.state.relatedItems.length} title={related.Title} index={index} key={index} onClick={() => { this.getData(related.Id) }} />)}
+            </div>
+            <div className="row mt-4">
+              {this.state.sections.slice(2, this.state.sections.length).map((section, i) => <Section key={i} content={section.Content} col={'6'} />)}
+            </div>
 
-    </>
+          </div>)
     )
-    if (this.state.loading)
-      content = <Spinner />
-    return content;
   }
 }
 

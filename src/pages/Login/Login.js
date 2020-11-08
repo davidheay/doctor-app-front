@@ -13,14 +13,11 @@ const MySwal = withReactContent(Swal)
 
 class Login extends Component {
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      isUserLoggedIn: this.props.isUserLoggedIn,
-      user: "",
-      password: ""
-    };
-  }
+  state = {
+    isUserLoggedIn: this.props.isUserLogged,
+    user: "",
+    password: ""
+  };
   componentDidUpdate() {
     this.checkLoggedIn();
   }
@@ -28,7 +25,7 @@ class Login extends Component {
     this.checkLoggedIn();
   }
   checkLoggedIn() {
-    if (this.state.isUserLoggedIn)
+    if (this.props.isUserLoggedIn)
       this.props.history.push('/');
     else if (this.props.error !== '' && !this.props.loadingAuth)
       this.showError();
@@ -65,8 +62,10 @@ class Login extends Component {
             <input type="password" className="form-control" placeholder="Contraseña"
               value={this.state.password} onChange={(e => this.setState({ password: e.target.value }))} />
           </div>
-          {this.renderSubmitButton()}
-          {(this.props.location.search).includes("logout") ? <div className="alert alert-warning mt-3" role="alert">Has cerrado sesion satisfactoriamente!</div> : ""}
+          <div className="input-group ">
+            {this.renderSubmitButton()}
+          </div>
+
         </div>
       </div>
     );
@@ -74,8 +73,8 @@ class Login extends Component {
 
   renderSubmitButton = () => {
     let content = [
-      <button className="btn btn-md btn-success btn-block" onClick={this.logIn} >Iniciar sesión</button>
-      , <Link to="/singUp" className="btn btn-md btn-info btn-block" >Crear cuenta</Link>];
+      <button className="btn btn-md btn-success btn-block" onClick={this.logIn} key={1} >Iniciar sesión</button>
+      , <Link to="/singUp" className="btn btn-md btn-info btn-block" key={2}>Crear cuenta</Link>];
     if (this.props.loadingAuth)
       content = <Spinner />
     return content;

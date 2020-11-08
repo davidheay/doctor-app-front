@@ -48,17 +48,23 @@ const setError = (state, action) => {
     let textError = '';
     switch (action.payload.error) {
         case 'INVALID_EMAIL':
-            textError = 'Check your email, please';
+            textError = 'Verifica tu correo';
             break;
         case 'MISSING_PASSWORD':
-            textError = 'It seems that you have not entered password';
+            textError = 'Verifica tu contraseña';
             break;
         case 'EMAIL_NOT_FOUND':
         case 'INVALID_PASSWORD':
-            textError = 'Verify your email or password,please';
+            textError = 'Verifica tu correo o contraseña';
+            break;
+        case 'EMAIL_EXISTS':
+            textError = 'Parece que este correo ya existe';
             break;
         default:
-            textError = action.payload.error;
+            if (action.payload.error.includes("WEAK_PASSWORD"))
+                textError = "Tu contraseña es muy debil, debe contener al menos 6 caracteres";
+            else if (action.payload.error !== textError)
+                textError = "Ups, ha ocurrido un error";
             break;
     }
     return updateObject(state, {

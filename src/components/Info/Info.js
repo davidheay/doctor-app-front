@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import ilustration from '../../images/ilustration.png';
 import "./Info.css";
+
 class Info extends Component {
   render() {
     return (
@@ -14,9 +16,9 @@ class Info extends Component {
               ofrecerte el mejor cuidado que puedas encontrar
               en la red.
             </p>
-            <button className="btn btn-primary ">
+            <Link className="btn btn-primary" to="/citas">
               Reserva ahora
-            </button>
+            </Link>
            </div>
         </div>
         <div className="col-sm-6 ">

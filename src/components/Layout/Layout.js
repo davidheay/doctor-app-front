@@ -7,7 +7,7 @@ function Layout(props) {
   return (
     <React.Fragment>
       <Navbar/>
-      <div className="container my-3">
+      <div className="container-fluid my-3">
         {props.children}
       </div>
       <Footer />

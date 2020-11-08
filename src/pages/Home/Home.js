@@ -7,12 +7,12 @@ import Banner from '../../components/Banner/Banner';
 class Home extends Component {
   render() {
     return (
-      <>
+      <div className="container">
         <Info />
         <Specialties />
         <Banner />
         <Recommendations />
-      </>
+      </div>
     )
   }
 }

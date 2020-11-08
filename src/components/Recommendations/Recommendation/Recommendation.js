@@ -4,7 +4,7 @@ class Recomendation extends Component {
     render() {
         return (
             <div className="col-4">
-                <div className="card" >
+                <div className="card recomendation" >
                     <img src={this.props.src} className="card-img-top" alt="Recomendation" />
                     <div className="card-body">
                         <h5 className="card-title">{this.props.title}</h5>
