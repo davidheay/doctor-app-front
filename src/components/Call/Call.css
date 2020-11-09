@@ -1,0 +1,29 @@
+.btn-ok{
+    background-color: rgb(23, 36, 73);
+    color: white;
+}
+
+.btn-out{
+    background-color: #dc3545;
+    color: white;
+}
+.float-button-action {
+    z-index: 50;
+    width: 10rem;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    bottom: 0;
+    right: 0;
+    position: fixed;
+    margin-bottom: 2.5rem;
+    margin-right: 2.5rem;
+    height: 2.5rem;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    border-width: 1px;
+    border-radius: 9999px;
+}
+
+.clicable {
+    cursor: pointer;
+}

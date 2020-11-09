@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Link } from 'react-router-dom'
+import "./DoctorAppointment.css"
 
 import axiosFireBase from '../../../instances/axios-fire-base-data';
 import { connect } from 'react-redux';
@@ -52,8 +53,8 @@ class DoctorAppointment extends Component {
                         </div>
                     </div>
                     <div className="col-12">
-                        <button type="button" className="btn btn-success btn-sm btn-block" onClick={this.takeAppoiment}>
-                            <i className="fa fa-check text-white"></i> Reservar
+                        <button type="button" className="btn btn-success btn-sm btn-block pill" onClick={this.takeAppoiment}>
+                            <i className="fa fa-check text-white"></i> Realizar reservación
                         </button>
                     </div>
                 </>)
@@ -72,7 +73,7 @@ class DoctorAppointment extends Component {
                             <b><i className="fa fa-notes-medical text-dark"></i> Notas:</b>
                         </div>
                         <div className="col-8 my-1">
-                            Se realizo esto y tambien esto y estro y otra cosa que bno se que
+                            Se realizó esto y tambien esto y estro y otra cosa que bno se que
                         </div>
                     </>
                 )

@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import DoctorAppointment from '../../components/Appointments/DoctorAppointment/DoctorAppointment';
 import axiosFireBase from '../../instances/axios-fire-base-data';
 import Spinner from '../../components/Spinner/Spinner';
+import "./Doctor.css"
 
 class Doctor extends Component {
 
@@ -83,15 +84,20 @@ class Doctor extends Component {
             <div className="row">
                 <div className="col-4 offset-4 text-center mb-4">
                     <h3> <i className="fa fa-user-plus float"></i> Citas</h3>
-
                 </div>
                 <div className="col-4 text-center">
-                    <button type="button" class="btn btn-primary btn-sm" onClick={this.update}><i class="fas fa-redo-alt"></i> Recargar</button>
+                    <div data-v-236e3827="" class="float-button-action clicable btn-ok" onClick={this.update}>
+                        <div data-v-236e3827="" class="float-button-action-text" >
+                        Recargar
+                        </div>
+                    </div>
+                    
                 </div>
                 <div className="col-4">
                     <div className="card p-0">
-                        <div className="card-header">
+                        <div className="p-4">
                             <p className="card-title">Pendientes</p>
+                            <div data-v-636de4fa="" class="separator "></div>
                         </div>
                         <div className="card-body">
                             {
@@ -107,8 +113,9 @@ class Doctor extends Component {
                 </div>
                 <div className="col-4">
                     <div className="card p-0">
-                        <div className="card-header">
+                        <div className="p-4">
                             <p className="card-title">Tomadas</p>
+                            <div data-v-636de4fa="" class="separator "></div>
                         </div>
                         <div className="card-body">
 
@@ -125,8 +132,9 @@ class Doctor extends Component {
                 <div className="col-4">
 
                     <div className="card p-0">
-                        <div className="card-header">
+                    <div className="p-4">
                             <p className="card-title">Realizadas</p>
+                            <div data-v-636de4fa="" class="separator "></div>
                         </div>
                         <div className="card-body">
                             {/* <DoctorAppointment type={"done"} /> */}

@@ -1,3 +1,31 @@
 .card-body i {
-    color: rgba(20, 20, 20, 0.15);
-  }
+  color: rgba(20, 20, 20, 0.15);
+}
+
+.card{
+  border-radius: 20px !important;
+  border: none !important;
+  -webkit-box-shadow: 2px 6px 28px -9px rgba(0,0,0,0.5);
+-moz-box-shadow: 2px 6px 28px -9px rgba(0,0,0,0.5);
+box-shadow: 2px 6px 28px -9px rgba(0,0,0,0.5);
+}
+
+.card-header {
+  padding: .75rem 1.25rem;
+  margin-bottom: 0;
+  /* background-color: rgba(0,0,0,.03); */
+  border-bottom: 1px solid rgba(0,0,0,.125);
+}
+
+.separator {
+  border-bottom: 1px solid #d7d7d7;
+}
+.separator::before {
+  content: "";
+  background-color: #18527A;
+  width: 30px;
+  height: 4px;
+  border-radius: 0px;
+  display: block;
+  position: absolute;
+}

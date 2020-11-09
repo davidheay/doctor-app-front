@@ -69,18 +69,35 @@ class UserAppointments extends Component {
   render() {
     return (
       <div className="row">
-        <div className="col-3">
+        <div className="col-9">
+        <div className="row mb-4">
           {this.state.loadingCategories ? <Spinner /> : this.state.categories.map((cat, i) => <CategoricalAppointments key={i} {...cat} onClick={this.setCategory} />)}
         </div>
 
-        <div className="col-6">
-          <div className="card border-darken shadow-sm p-0">
-            <div className="card-header pb-1">
-              <h4 className="card-title">Mis citas - {this.state.category}</h4>
+          <div className="card  p-0">
+            
+            <div className="p-4">
+              <h4 className="card-title ">Mis citas - {this.state.category}</h4>
+              <div data-v-636de4fa="" class="separator "></div>
             </div>
+            
             <div className="card-body">
-              {this.state.loadingappointments ? <Spinner /> :
+              <table class="table table-hover">
+                <thead>
+                  <tr>
+                    <th>Fecha</th>
+                    <th>Especialidad</th>
+                    <th>Doctor</th>
+                    <th>Opciones</th>
+                  </tr>
+                </thead>
+                <tbody>
+                {this.state.loadingappointments ? <Spinner /> :
                 this.state.appointments.map((appo, i) => <Appointment key={i} {...appo} />)}
+                
+                </tbody>
+              </table>
+             
             </div>
           </div>
         </div>

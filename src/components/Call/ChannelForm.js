@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import "./Call.css"
 
 export default class ChannelForm extends Component {
   state = {
@@ -18,13 +19,18 @@ export default class ChannelForm extends Component {
         <div className="col-12 text-center ">
           {this.state.channel === "" ?
             (
-              <button className="btn btn-success" type="button" onClick={this.click}>
-                <i className="fas  fa-video"></i> Ingresar a la cita
-              </button>
+              <div data-v-236e3827="" class="float-button-action clicable btn-ok" onClick={this.click}>
+                <div data-v-236e3827="" class="float-button-action-text" >
+                  Ingresar a la cita
+                </div>
+              </div>
+              
             ) : (
-              <button className="btn btn-danger" type="button" onClick={this.exit}>
-                <i className="fas  fa-times"></i> Salir de la cita
-              </button>
+              <div data-v-236e3827="" class="float-button-action clicable btn-out" onClick={this.exit}>
+                <div data-v-236e3827="" class="float-button-action-text" >
+                  Salir de la cita
+                </div>
+              </div>
             )
           }
         </div>

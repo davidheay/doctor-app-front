@@ -56,9 +56,11 @@ class FormAppointment extends Component {
             <div className="row">
                 <div className="col-12">
                     <div className="card border-darken shadow-sm p-0">
-                        <div className="card-header pb-1">
+                        
+                    <div className="p-4">
                             <h5 className="card-title"><i className="fa fa-plus"></i> Nueva solicitud</h5>
-                        </div>
+                            <div data-v-636de4fa="" class="separator mb-5"></div>
+                    </div>
                         <div className="card-body  ">
                             <div className="form-group">
                                 <label>Especialidad</label>

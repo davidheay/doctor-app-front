@@ -148,7 +148,7 @@ export default class Call extends Component {
       client.leave();
       MySwal.fire({
         icon: 'info',
-        text: 'Gracias por la llamada,volviendo a tus citas'
+        text: 'Gracias por la llamada, serás redirigido a tus citas'
       }).then(() => {
         this.props.history.push('/citas');
       });
