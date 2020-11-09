@@ -33,16 +33,23 @@ class FormAppointment extends Component {
     }
     request() {
         this.setState({ requesting: true })
-        axiosFireBase.post(`users/${this.props.localId}/appointments/pendientes.json`, { date: (new Date()).toLocaleDateString(), specialty: this.state.specialty, obs: this.state.obs })
-            .then(response => {
-                this.setState({
-                    specialty: "",
-                    obs: "",
-                    requesting: false
-                });
-            }).catch(e => {
-                console.log(e);
+        axiosFireBase.post(`users/${this.props.localId}/appointments/pendientes.json`,
+            {
+                date: (new Date()).toLocaleDateString(),
+                specialty: this.state.specialty,
+                obs: this.state.obs
+            }
+        ).then(response => {
+            console.log("response");
+            this.props.onClick();
+            this.setState({
+                specialty: "",
+                obs: "",
+                requesting: false
             });
+        }).catch(e => {
+            console.log(e);
+        });
     }
     render() {
         return (
@@ -56,7 +63,7 @@ class FormAppointment extends Component {
                             <div className="form-group">
                                 <label>Especialidad</label>
                                 <select className="form-control" value={this.state.specialty} onChange={(e => this.setState({ specialty: e.target.value }))} >
-                                    {this.state.options.map((op,i) => <option key={i} value={op}>{op}</option>)}
+                                    {this.state.options.map((op, i) => <option key={i} value={op}>{op}</option>)}
                                 </select>
                             </div>
                             <div className="form-group">

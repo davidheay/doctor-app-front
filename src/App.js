@@ -6,10 +6,11 @@ import "./extras/bootstrap/bootstrap.min.css";
 import "./extras/fontawesome/css/all.min.css";
 import Home from "./pages/Home/Home";
 import Login from "./pages/Login/Login";
-import MedicalAppointments from "./pages/MedicalAppointments/MedicalAppointments";
+import UserAppointments from "./pages/UserAppointments/UserAppointments";
 import P404 from "./pages/P404/P404";
 import Recomendaciones from "./pages/Recomendaciones/Recomendaciones";
 import SingUp from "./pages/SingUp/SingUp";
+import DoctorAppointments from "./pages/Doctor/Doctor";
 import Us from "./pages/Us/Us";
 import * as actionCreators from './store/actions/authenticationActions';
 
@@ -24,13 +25,13 @@ class App extends Component {
       <BrowserRouter>
         <Layout>
           <Switch>
-            {/* <Route path="/" component={MedicalAppointments} exact /> */}
+            {/* <Route path="/" component={Doctor} /> */}
             <Route path="/" component={Home} exact />
             <Route path="/login" component={Login} />
             <Route path="/singup" component={SingUp} />
             <Route path="/nosotros" component={Us} />
             <Route path="/recomendaciones" component={Recomendaciones} />
-            <Route path="/citas" component={MedicalAppointments} />
+            <Route path="/citas" component={this.props.userRol === 'patient' ? UserAppointments : DoctorAppointments} />
             <Route component={P404} />
           </Switch>
         </Layout>
@@ -41,10 +42,16 @@ class App extends Component {
 
 }
 
+const mapStateToProps = state => {
+  return {
+    userRol: state.authenticationStore.userLoggedIn.rol,
+  }
+}
+
 const mapDispatchToProps = dispatch => {
   return {
     onPersistAuthentication: () => dispatch(actionCreators.persistAuthentication())
   };
 };
 
-export default connect(null, mapDispatchToProps)(App);
+export default connect(mapStateToProps, mapDispatchToProps)(App);

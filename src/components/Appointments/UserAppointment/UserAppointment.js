@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from 'react-router-dom'
-const Appointment = (props) => {
+const UserAppointment = (props) => {
     return (
         <div className="card py-0 my-2">
             <div className="card-body py-2 px-1">
@@ -28,5 +28,5 @@ const Appointment = (props) => {
         </div>
     )
 }
-export default Appointment;
+export default UserAppointment;
 

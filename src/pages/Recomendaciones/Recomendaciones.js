@@ -20,6 +20,7 @@ class Recomendaciones extends Component {
     this.getData('30544')
   }
   getData = (id) => {
+    this.setState({loading:true})
     axios.get('https://health.gov/myhealthfinder/api/v3/topicsearch.json', {
       params: {
         TopicId: id,

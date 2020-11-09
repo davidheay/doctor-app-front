@@ -6,7 +6,8 @@ const initialState = {
     userLoggedIn: {
         userName: '',
         idToken: '',
-        localId: ''
+        localId: '',
+        rol: '',
     },
     loadingAuth: false,
     error: ''
@@ -18,7 +19,8 @@ const login = (state, action) => {
         userLoggedIn: {
             userName: action.payload.userName,
             idToken: action.payload.idToken,
-            localId: action.payload.localId
+            localId: action.payload.localId,
+            rol: action.payload.rol
         }
     });
 }
@@ -29,7 +31,8 @@ const signUp = (state, action) => {
         userLoggedIn: {
             userName: action.payload.userName,
             idToken: action.payload.idToken,
-            localId: action.payload.localId
+            localId: action.payload.localId,
+            rol: action.payload.rol
         }
     });
 }

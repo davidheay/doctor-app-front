@@ -25,24 +25,26 @@ const setError = errorText => {
     }
 }
 
-const saveSession = (userName, token, localId) => {
+const saveSession = (userName, token, localId, rol) => {
     return {
         type: actionTypes.LOGIN,
         payload: {
             userName: userName,
             idToken: token,
-            localId: localId
+            localId: localId,
+            rol: rol
         }
     };
 };
 
-const saveSignUp = (userName, token, localId) => {
+const saveSignUp = (userName, token, localId, rol) => {
     return {
         type: actionTypes.SIGN_UP,
         payload: {
             userName: userName,
             idToken: token,
-            localId: localId
+            localId: localId,
+            rol: rol
         }
     };
 };
@@ -60,17 +62,20 @@ export const logIn = (authData, onSuccessCallback) => {
                     userEmail,
                     localId
                 };
+                axiosFireBase.get(`users/${localId}.json`)
+                    .then(res => {
+                        userSession["rol"] = res.data.rol;
+                        userSession = JSON.stringify(userSession);
+                        localStorage.setItem('userSession', userSession);
+                        dispatch(saveSession(userEmail, token, localId, res.data.rol));
+                        dispatch(endAuthLoading());
+                        if (onSuccessCallback) {
+                            onSuccessCallback();
+                        }
+                    });
 
-                userSession = JSON.stringify(userSession);
 
-                localStorage.setItem('userSession', userSession);
 
-                dispatch(saveSession(userEmail, token, localId));
-                dispatch(endAuthLoading());
-
-                if (onSuccessCallback) {
-                    onSuccessCallback();
-                }
             })
             .catch(errorObj => {
                 dispatch(setError(errorObj.response.data.error.message));
@@ -90,16 +95,17 @@ export const signUp = (authData, onSuccessCallback) => {
                 let userSession = {
                     token,
                     userEmail,
-                    localId
+                    localId,
+                    rol: "patinent"
                 };
 
                 userSession = JSON.stringify(userSession);
 
                 localStorage.setItem('userSession', userSession);
-                
+
                 axiosFireBase.put(`users/${localId}.json`, { user: userEmail, rol: "patient" })
                     .then(res => {
-                        dispatch(saveSignUp(userEmail, token, localId));
+                        dispatch(saveSignUp(userEmail, token, localId, "patient"));
                         dispatch(endAuthLoading());
                         if (onSuccessCallback) {
                             onSuccessCallback();
@@ -122,7 +128,7 @@ export const persistAuthentication = () => {
         } else {
             userSession = JSON.parse(userSession);
 
-            dispatch(saveSession(userSession.userEmail, userSession.token, userSession.localId));
+            dispatch(saveSession(userSession.userEmail, userSession.token, userSession.localId,userSession.rol));
         }
     }
 }

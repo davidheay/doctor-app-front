@@ -1,15 +1,17 @@
 import React, { Component } from "react";
 import { connect } from 'react-redux';
 import CategoricalAppointments from "../../components/Appointments/CategoricalAppointments/CategoricalAppointments";
-import Appointment from "../../components/Appointments/Appointment/Appointment";
+import Appointment from "../../components/Appointments/UserAppointment/UserAppointment";
 import FormAppointment from "../../components/Appointments/FormAppointment/FormAppointment";
 import Spinner from '../../components/Spinner/Spinner';
 import axiosFireBase from "../../instances/axios-fire-base-data"
-class MedicalAppointments extends Component {
+import "./UserAppointments.css"
+class UserAppointments extends Component {
 
   constructor(props) {
     super(props)
     this.setCategory = this.setCategory.bind(this)
+    this.update = this.update.bind(this)
     this.state = {
       category: "",
       categories: [],
@@ -18,10 +20,10 @@ class MedicalAppointments extends Component {
       loadingappointments: false
     }
   }
-
-
-
-
+  update(){
+    this.setCategory("pendientes")
+    
+  }
   componentDidMount() {
     if (!this.props.isUserLoggedIn)
       this.props.history.push('/login');
@@ -34,9 +36,10 @@ class MedicalAppointments extends Component {
             newCategories.push(dataCategories[key]);
           }
           this.setState({ categories: newCategories, loadingCategories: false })
+          this.update();
         })
-        .catch(errorObj => {
-          console.log(errorObj);
+        .catch(e => {
+          console.log(e);
         });
 
   }
@@ -58,8 +61,8 @@ class MedicalAppointments extends Component {
         }
         this.setState({ appointments: newAppointments, loadingappointments: false });
       })
-      .catch(errorObj => {
-        console.log(errorObj);
+      .catch(e => {
+        console.log(e);
       });
 
   }
@@ -76,13 +79,14 @@ class MedicalAppointments extends Component {
               <h4 className="card-title">Mis citas - {this.state.category}</h4>
             </div>
             <div className="card-body">
-              {this.state.loadingappointments ? <Spinner /> : this.state.appointments.map((appo, i) => <Appointment key={i} {...appo} />)}
+              {this.state.loadingappointments ? <Spinner /> :
+                this.state.appointments.map((appo, i) => <Appointment key={i} {...appo} />)}
             </div>
           </div>
         </div>
 
         <div className="col-3">
-          <FormAppointment />
+          <FormAppointment onClick={this.update} />
         </div>
       </div>
     )
@@ -101,5 +105,5 @@ const mapDispatchToProps = dispatch => {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(MedicalAppointments);
+export default connect(mapStateToProps, mapDispatchToProps)(UserAppointments);
 
