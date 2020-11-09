@@ -1,36 +1,34 @@
 import React, { Component } from "react";
 
 export default class ChannelForm extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      channel: "sala1"
-    };
+  state = {
+    channel: ""
   }
-  onChange = e => {
-    let { name, value } = e.target;
-    this.setState({ [name]: value });
+  click = e => {
+    this.setState({ channel: "sala2" });
+    this.props.selectChannel("sala2");
   };
-  onSubmit = e => {
-    e.preventDefault();
-    console.log("Submiting ", this.state.channel);
-    this.props.selectChannel(this.state.channel);
+  exit = e => {
     this.setState({ channel: "" });
+    this.props.exit();
   };
   render() {
     return (
-      <div>
-        <form onSubmit={this.onSubmit}>
-          <label>Channel Name</label>
-          {/* <input
-            placeholder="Channel Name"
-            name="channel"
-            value={this.state.channel}
-            onChange={this.onChange}
-          /> */}
-          <input type="submit" value="Join Channel" />
-        </form>
-      </div>
+      <div className="row">
+        <div className="col-12 text-center ">
+          {this.state.channel === "" ?
+            (
+              <button className="btn btn-success" type="button" onClick={this.click}>
+                <i className="fas  fa-video"></i> Ingresar a la cita
+              </button>
+            ) : (
+              <button className="btn btn-danger" type="button" onClick={this.exit}>
+                <i className="fas  fa-times"></i> Salir de la cita
+              </button>
+            )
+          }
+        </div>
+      </div >
     );
   }
 }

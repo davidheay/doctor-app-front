@@ -18,7 +18,7 @@ const UserAppointment = (props) => {
                     </div>
                     <div className="col-6 text-right">
                         {props.doctor ? (
-                            <Link to={"/" + props.id} type="button" className="btn btn-sm btn-primary">
+                            <Link to={"/sala"} type="button" className="btn btn-sm btn-primary">
                                 <i className="fa fa-link text-white"></i> Click aqui para acceder a la cita
                             </Link>
                         ) : ''}

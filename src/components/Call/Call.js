@@ -1,7 +1,11 @@
 import React, { Component } from "react";
 import AgoraRTC from "agora-rtc-sdk";
-let client = AgoraRTC.createClient({ mode: "live", codec: "h264" });
+import Swal from 'sweetalert2';
+import withReactContent from 'sweetalert2-react-content';
 
+const MySwal = withReactContent(Swal)
+
+let client = AgoraRTC.createClient({ mode: "live", codec: "h264" });
 const USER_ID = Math.floor(Math.random() * 1000000001);
 const APP_ID = "e5f30b46074a4fbe9ca9394535b2687c";
 
@@ -17,26 +21,37 @@ export default class Call extends Component {
     remoteStreams: []
   };
 
+  componentWillUnmount() {
+    try {
+      this.localStream.close();
+      client.leave();
+    } catch (err) {
+      console.error(err);
+    }
+  }
   componentDidMount() {
     this.initLocalStream();
     this.initClient();
   }
-
   componentDidUpdate(prevProps, prevState) {
-    if (prevProps.channel !== this.props.channel && this.props.channel !== "") {
+    if (!this.props.active) {
+      this.handleLeave()
+    }
+    if (this.props.active && prevProps.channel !== this.props.channel && this.props.channel !== "") {
       this.joinChannel();
     }
   }
 
+
   initLocalStream = () => {
     let me = this;
     me.localStream.init(
-      function() {
-        // console.log("getUserMedia successfully");
+      function () {
+        console.log("getUserMedia successfully");
         me.localStream.play("agora_local");
       },
-      function(err) {
-        // console.log("getUserMedia failed", err);
+      function (err) {
+        console.log("getUserMedia failed", err);
       }
     );
   };
@@ -44,10 +59,10 @@ export default class Call extends Component {
   initClient = () => {
     client.init(
       APP_ID,
-      function() {
+      function () {
         console.log("AgoraRTC client initialized");
       },
-      function(err) {
+      function (err) {
         console.log("AgoraRTC client init failed", err);
       }
     );
@@ -76,9 +91,7 @@ export default class Call extends Component {
         }
       },
       () => {
-        // Subscribe after new remoteStreams state set to make sure
-        // new stream dom el has been rendered for agora.io sdk to pick up
-        client.subscribe(stream, function(err) {
+        client.subscribe(stream, function (err) {
           console.log("Subscribe stream failed", err);
         });
       }
@@ -88,20 +101,19 @@ export default class Call extends Component {
   joinChannel = () => {
     let me = this;
     client.join(
-      "006e5f30b46074a4fbe9ca9394535b2687cIACOgY/vdWsIz6xEhWImZ3I6WBYZg0jvIo+2IRJth7hfmvyVP5cAAAAAEAA8/8eaL6eqXwEAAQAwp6pf",
+      "006e5f30b46074a4fbe9ca9394535b2687cIABUVuoCgy5jwDkqBmK+89SuwNj2tlmzkUMhh6SoiFSMlkbENg4AAAAAEAA8/8eaFcWqXwEAAQAVxapf",
       me.props.channel,
       USER_ID,
-      function(uid) {
-        console.log("User " + uid + " join channel successfully");
-        client.publish(me.localStream, function(err) {
+      function (uid) {
+        client.publish(me.localStream, function (err) {
           console.log("Publish local stream error: " + err);
         });
 
-        client.on("stream-published", function(evt) {
+        client.on("stream-published", function (evt) {
           console.log("Publish local stream successfully");
         });
       },
-      function(err) {
+      function (err) {
         console.log("Join channel failed", err);
       }
     );
@@ -110,8 +122,7 @@ export default class Call extends Component {
   onRemoteClientAdded = evt => {
     let me = this;
     let remoteStream = evt.stream;
-    me.state.remoteStreams[remoteStream.getId()].play(
-      "agora_remote " + remoteStream.getId()
+    me.state.remoteStreams[remoteStream.getId()].play("agora_remote" + remoteStream.getId()
     );
   };
 
@@ -131,6 +142,20 @@ export default class Call extends Component {
     }
   };
 
+  handleLeave = () => {
+    try {
+      this.localStream.close();
+      client.leave();
+      MySwal.fire({
+        icon: 'info',
+        text: 'Gracias por la llamada,volviendo a tus citas'
+      }).then(() => {
+        this.props.history.push('/citas');
+      });
+    } catch (err) {
+      console.error(err);
+    }
+  }
   onPeerLeave = evt => {
     let me = this;
     let stream = evt.stream;
@@ -149,16 +174,17 @@ export default class Call extends Component {
 
   render() {
     return (
-      <div>
-        <div id="agora_local" style={{ width: "400px", height: "400px" }} />
+      <div className="row">
+        <div id="agora_local" className="col-6 " style={{ width: "400px", height: "400px" }} />
+
         {Object.keys(this.state.remoteStreams).map(key => {
           let stream = this.state.remoteStreams[key];
           let streamId = stream.getId();
           return (
-            <div
+            <div className="col-6"
               key={streamId}
-              id={`agora_remote ${streamId}`}
-              style={{ width: "400px", height: "400px" }}
+              id={`agora_remote${streamId}`}
+              style={{ width: "400px", height: "auto" }}
             />
           );
         })}

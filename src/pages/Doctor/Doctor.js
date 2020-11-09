@@ -129,7 +129,7 @@ class Doctor extends Component {
                             <p className="card-title">Realizadas</p>
                         </div>
                         <div className="card-body">
-                            <DoctorAppointment type={"done"} />
+                            {/* <DoctorAppointment type={"done"} /> */}
                         </div>
                     </div>
                 </div>

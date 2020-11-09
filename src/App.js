@@ -28,9 +28,9 @@ class App extends Component {
           <Switch>
             {/* <Route path="/" component={Doctor} /> */}
             <Route path="/" component={Home} exact />
-            <Route path="/sala" component={Room} />
             <Route path="/login" component={Login} />
             <Route path="/singup" component={SingUp} />
+            <Route path="/sala" component={Room} />
             <Route path="/nosotros" component={Us} />
             <Route path="/recomendaciones" component={Recomendaciones} />
             <Route path="/citas" component={this.props.userRol === 'patient' ? UserAppointments : DoctorAppointments} />

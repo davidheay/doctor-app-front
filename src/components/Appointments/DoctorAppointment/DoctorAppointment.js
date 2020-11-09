@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import { Link } from 'react-router-dom'
+
 import axiosFireBase from '../../../instances/axios-fire-base-data';
 import { connect } from 'react-redux';
 
@@ -58,9 +60,9 @@ class DoctorAppointment extends Component {
             case "taken":
                 return (
                     <div className="col-12">
-                        <button type="button" className="btn btn-primary btn-sm btn-block">
+                        <Link to="/sala" className="btn btn-primary btn-sm btn-block">
                             <i className="fa fa-link text-white"></i> Entrar a la cita
-                        </button>
+                        </Link>
                     </div>
                 )
             case "done":
