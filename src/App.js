@@ -9,6 +9,7 @@ import Login from "./pages/Login/Login";
 import UserAppointments from "./pages/UserAppointments/UserAppointments";
 import P404 from "./pages/P404/P404";
 import Recomendaciones from "./pages/Recomendaciones/Recomendaciones";
+import Room from "./pages/Room/Room";
 import SingUp from "./pages/SingUp/SingUp";
 import DoctorAppointments from "./pages/Doctor/Doctor";
 import Us from "./pages/Us/Us";
@@ -27,6 +28,7 @@ class App extends Component {
           <Switch>
             {/* <Route path="/" component={Doctor} /> */}
             <Route path="/" component={Home} exact />
+            <Route path="/sala" component={Room} />
             <Route path="/login" component={Login} />
             <Route path="/singup" component={SingUp} />
             <Route path="/nosotros" component={Us} />
