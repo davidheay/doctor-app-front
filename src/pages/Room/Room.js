@@ -21,7 +21,7 @@ class App extends Component {
     return (
       <div className="container-fluid">
         <ChannelForm selectChannel={this.selectChannel} exit={this.exit} />
-        <Call channel={this.state.channel} active={this.state.active}  {...this.props} />
+        <Call channel={this.state.channel} active={this.state.active}  {...this.props} dataAppointment={this.props.location.query.data}/>
       </div>
     );
   }

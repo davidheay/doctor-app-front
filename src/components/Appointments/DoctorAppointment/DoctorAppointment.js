@@ -12,17 +12,18 @@ class DoctorAppointment extends Component {
         }
     }
     takeAppoiment = () => {
-        axiosFireBase.post(`users/${this.props.localId}/appointments/taken.json`,
+        axiosFireBase.patch(`users/${this.props.localId}/appointments/taken/${this.props.userppoimentKey}.json`,
             {
                 date: this.state.date,
                 obs: this.props.obs,
                 specialty: this.props.specialty,
                 user: this.props.user,
+                userKey: this.props.userKey,
             })
             .then(res => {
                 axiosFireBase.delete(`users/${this.props.userKey}/appointments/pendientes/${this.props.userppoimentKey}.json`)
                     .then(() => {
-                        axiosFireBase.post(`users/${this.props.userKey}/appointments/proximas.json`,
+                        axiosFireBase.patch(`users/${this.props.userKey}/appointments/proximas/${this.props.userppoimentKey}.json`,
                             {
                                 date: this.state.date,
                                 obs: this.props.obs,
@@ -58,9 +59,11 @@ class DoctorAppointment extends Component {
                     </div>
                 </>)
             case "taken":
+                console.log("taken");
+                console.log(this.props);
                 return (
                     <div className="col-12">
-                        <Link to="/sala" className="btn btn-primary btn-sm btn-block">
+                        <Link to={{ pathname: '/sala', query: { data: { ...this.props } } }} className="btn btn-primary btn-sm btn-block">
                             <i className="fa fa-link text-white"></i> Entrar a la cita
                         </Link>
                     </div>
@@ -72,7 +75,7 @@ class DoctorAppointment extends Component {
                             <b><i className="fa fa-notes-medical text-dark"></i> Notas:</b>
                         </div>
                         <div className="col-8 my-1">
-                            Se realizo esto y tambien esto y estro y otra cosa que bno se que
+                            {this.props.notes}
                         </div>
                     </>
                 )
@@ -126,11 +129,6 @@ const mapStateToProps = state => {
     }
 }
 
-const mapDispatchToProps = dispatch => {
-    return {
-    }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(DoctorAppointment);
+export default connect(mapStateToProps, null)(DoctorAppointment);
 
 

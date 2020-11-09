@@ -14,6 +14,8 @@ class Doctor extends Component {
             loadingPending: true,
             takenAppoiments: [],
             loadingTaken: true,
+            doneAppoiments: [],
+            loadingDone: true,
         }
     }
 
@@ -53,7 +55,7 @@ class Doctor extends Component {
                 const dataAppointments = response.data;
                 let newTakenAppoiments = [];
                 for (const key in dataAppointments) {
-                    newTakenAppoiments.push({ ...dataAppointments[key] })
+                    newTakenAppoiments.push({ ...dataAppointments[key], keyAppointment: key })
                 }
                 // newTakenAppoiments.sort((a, b) => new Date(a.date) - new Date(b.date));
                 this.setState({ takenAppoiments: newTakenAppoiments, loadingTaken: false })
@@ -62,9 +64,25 @@ class Doctor extends Component {
                 console.log(e);
             });
     }
+    getDoneAppoiments() {
+        this.setState({ loadingDone: true })
+        axiosFireBase.get(`users/${this.props.localId}/appointments/done.json`)
+            .then(response => {
+                const dataAppointments = response.data;
+                let newDoneAppoiments = [];
+                for (const key in dataAppointments) {
+                    newDoneAppoiments.push({ ...dataAppointments[key], keyAppointment: key })
+                }
+                this.setState({ doneAppoiments: newDoneAppoiments, loadingDone: false })
+            })
+            .catch(e => {
+                console.log(e);
+            });
+    }
     update() {
         this.getPendingAppoiments();
         this.getTakenAppoiments();
+        this.getDoneAppoiments();
     }
     componentDidMount() {
         if (!this.props.isUserLoggedIn)
@@ -86,7 +104,7 @@ class Doctor extends Component {
 
                 </div>
                 <div className="col-4 text-center">
-                    <button type="button" class="btn btn-primary btn-sm" onClick={this.update}><i class="fas fa-redo-alt"></i> Recargar</button>
+                    <button type="button" className="btn btn-primary btn-sm" onClick={this.update}><i className="fas fa-redo-alt"></i> Recargar</button>
                 </div>
                 <div className="col-4">
                     <div className="card p-0">
@@ -113,7 +131,7 @@ class Doctor extends Component {
                         <div className="card-body">
 
                             {
-                                this.state.loadingPending ?
+                                this.state.loadingTaken ?
                                     <Spinner /> :
                                     this.state.takenAppoiments.map((pa, i) =>
                                         <DoctorAppointment type={"taken"} key={i} {...pa} />
@@ -129,7 +147,13 @@ class Doctor extends Component {
                             <p className="card-title">Realizadas</p>
                         </div>
                         <div className="card-body">
-                            {/* <DoctorAppointment type={"done"} /> */}
+                            {
+                                this.state.loadingDone?
+                                    <Spinner /> :
+                                    this.state.doneAppoiments.map((pa, i) =>
+                                        <DoctorAppointment type={"done"} key={i} {...pa} />
+                                    )
+                            }
                         </div>
                     </div>
                 </div>
@@ -145,10 +169,5 @@ const mapStateToProps = state => {
     }
 }
 
-const mapDispatchToProps = dispatch => {
-    return {
-    }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(Doctor);
+export default connect(mapStateToProps, null)(Doctor);
 

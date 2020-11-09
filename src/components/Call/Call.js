@@ -1,7 +1,11 @@
-import React, { Component } from "react";
 import AgoraRTC from "agora-rtc-sdk";
+import React, { Component } from "react";
+import { connect } from 'react-redux';
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
+import axiosFireBase from '../../instances/axios-fire-base-data';
+
+
 
 const MySwal = withReactContent(Swal)
 
@@ -9,7 +13,7 @@ let client = AgoraRTC.createClient({ mode: "live", codec: "h264" });
 const USER_ID = Math.floor(Math.random() * 1000000001);
 const APP_ID = "e5f30b46074a4fbe9ca9394535b2687c";
 
-export default class Call extends Component {
+class Call extends Component {
   localStream = AgoraRTC.createStream({
     streamID: USER_ID,
     audio: true,
@@ -28,11 +32,21 @@ export default class Call extends Component {
     } catch (err) {
       console.error(err);
     }
-  }
+  };
   componentDidMount() {
+    console.log("delete appoimnet");
+    console.log();
+
+
+    console.log("insert usu key new appoinment");
+    console.log();
+
+    console.log("insert appoiment ready");
+
+
     this.initLocalStream();
     this.initClient();
-  }
+  };
   componentDidUpdate(prevProps, prevState) {
     if (!this.props.active) {
       this.handleLeave()
@@ -40,9 +54,7 @@ export default class Call extends Component {
     if (this.props.active && prevProps.channel !== this.props.channel && this.props.channel !== "") {
       this.joinChannel();
     }
-  }
-
-
+  };
   initLocalStream = () => {
     let me = this;
     me.localStream.init(
@@ -55,7 +67,6 @@ export default class Call extends Component {
       }
     );
   };
-
   initClient = () => {
     client.init(
       APP_ID,
@@ -68,7 +79,6 @@ export default class Call extends Component {
     );
     this.subscribeToClient();
   };
-
   subscribeToClient = () => {
     let me = this;
     client.on("stream-added", me.onStreamAdded);
@@ -78,7 +88,6 @@ export default class Call extends Component {
 
     client.on("peer-leave", me.onPeerLeave);
   };
-
   onStreamAdded = evt => {
     let me = this;
     let stream = evt.stream;
@@ -97,7 +106,6 @@ export default class Call extends Component {
       }
     );
   };
-
   joinChannel = () => {
     let me = this;
     client.join(
@@ -118,14 +126,12 @@ export default class Call extends Component {
       }
     );
   };
-
   onRemoteClientAdded = evt => {
     let me = this;
     let remoteStream = evt.stream;
     me.state.remoteStreams[remoteStream.getId()].play("agora_remote" + remoteStream.getId()
     );
   };
-
   onStreamRemoved = evt => {
     let me = this;
     let stream = evt.stream;
@@ -141,17 +147,69 @@ export default class Call extends Component {
       console.log("Remote stream is removed " + stream.getId());
     }
   };
-
   handleLeave = () => {
     try {
       this.localStream.close();
       client.leave();
-      MySwal.fire({
-        icon: 'info',
-        text: 'Gracias por la llamada,volviendo a tus citas'
-      }).then(() => {
-        this.props.history.push('/citas');
-      });
+      if (this.props.userRol === 'doctor') {
+        MySwal.fire({
+          icon: 'info',
+          input: 'textarea',
+          title: 'Ha finalizado la cita añada una nota',
+          inputPlaceholder: 'Notas de la cita',
+          inputValidator: (value) => {
+            if (!value) {
+              return 'Valida la nota!'
+            }
+          }
+        }).then((e) => {
+          if (e.isConfirmed) {
+
+            axiosFireBase.delete(`users/${this.props.dataAppointment.userKey}/appointments/proximas/${this.props.dataAppointment.keyAppointment}.json`)
+              .then(() => {
+                axiosFireBase.patch(`users/${this.props.dataAppointment.userKey}/appointments/realizadas/${this.props.dataAppointment.keyAppointment}.json`,
+                  {
+                    date: (new Date()).toLocaleString(),
+                    obs: this.props.dataAppointment.obs,
+                    specialty: this.props.dataAppointment.specialty,
+                    notes: e.value,
+                    doctor: this.props.userName,
+                    doctorKey: this.props.localId
+                  }
+                ).then(() => {
+                  axiosFireBase.delete(`users/${this.props.localId}/appointments/taken/${this.props.dataAppointment.keyAppointment}.json`)
+                    .then(() => {
+                      axiosFireBase.patch(`users/${this.props.localId}/appointments/done/${this.props.dataAppointment.keyAppointment}.json`,
+                        {
+                          date: (new Date()).toLocaleString(),
+                          obs: this.props.dataAppointment.obs,
+                          specialty: this.props.dataAppointment.specialty,
+                          notes: e.value,
+                          user: this.props.dataAppointment.userName,
+                          userKey: this.props.dataAppointment.localId
+                        }
+                      ).then(() => {
+                        this.props.history.push('/citas');
+                      });
+                    });
+                });
+              });
+
+          }
+        })
+      } else {
+        MySwal.fire({
+          icon: 'info',
+          text: 'Gracias por la llamada,volviendo a tus citas'
+        }).then(() => {
+          this.props.history.push('/citas');
+        });
+      }
+
+
+
+
+
     } catch (err) {
       console.error(err);
     }
@@ -171,7 +229,6 @@ export default class Call extends Component {
       console.log(evt.uid + " leaved from this channel");
     }
   };
-
   render() {
     return (
       <div className="row">
@@ -192,3 +249,13 @@ export default class Call extends Component {
     );
   }
 }
+
+const mapStateToProps = state => {
+  return {
+    userRol: state.authenticationStore.userLoggedIn.rol,
+    userName: state.authenticationStore.userLoggedIn.userName,
+    localId: state.authenticationStore.userLoggedIn.localId,
+  }
+}
+
+export default connect(mapStateToProps, null)(Call);
