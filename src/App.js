@@ -26,7 +26,6 @@ class App extends Component {
       <BrowserRouter>
         <Layout>
           <Switch>
-            {/* <Route path="/" component={Doctor} /> */}
             <Route path="/" component={Home} exact />
             <Route path="/login" component={Login} />
             <Route path="/singup" component={SingUp} />

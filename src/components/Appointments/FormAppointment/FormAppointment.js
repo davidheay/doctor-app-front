@@ -59,7 +59,7 @@ class FormAppointment extends Component {
                         
                     <div className="p-4">
                             <h5 className="card-title"><i className="fa fa-plus"></i> Nueva solicitud</h5>
-                            <div data-v-636de4fa="" class="separator mb-5"></div>
+                            <div data-v-636de4fa="" class="separator"></div>
                     </div>
                         <div className="card-body  ">
                             <div className="form-group">
@@ -94,10 +94,6 @@ const mapStateToProps = state => {
     }
 }
 
-const mapDispatchToProps = dispatch => {
-    return {
-    }
-}
 
-export default connect(mapStateToProps, mapDispatchToProps)(FormAppointment);
+export default connect(mapStateToProps, null)(FormAppointment);
 
