@@ -10,7 +10,7 @@ const UserAppointment = (props) => {
             {props.notes ? (
                             props.notes
                         ) : (props.doctor ? (
-                            <Link to={"/sala"} type="button" className="btn btn-sm btn-primary">
+                            <Link to={{ pathname: '/sala', query: { data: { ...props } } }}type="button" className="btn btn-sm btn-primary">
                                 <i className="fa fa-link text-white"></i> Acceder a la cita
                             </Link>
                         ) : '')}
